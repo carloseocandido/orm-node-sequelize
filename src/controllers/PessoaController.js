@@ -23,6 +23,7 @@ class PessoaController {
 
     static cadastrarPessoas = async (req, res) => {
         const resultado = req.body
+        
         try {
             const pessoasResultado = await database.Pessoas.create(resultado)
             return res.status(200).json(pessoasResultado)
