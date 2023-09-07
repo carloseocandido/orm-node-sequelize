@@ -45,4 +45,4 @@ Neste projeto, você encontrará exemplos de como usar o Sequelize para realizar
 - config: Arquivos de configuração do Sequelize e conexão com o banco de dados.
 
 ##  Contribuição
-Sinta-se à vontade para contribuir com este projeto, abrindo problemas (issues) ou enviando solicitações de pull (pull requests). Se você tiver sugestões de melhorias, correções de bugs ou novos recursos, adoraríamos ouvir sua opinião!
+Sinta-se à vontade para contribuir com este projeto, abrindo problemas (issues) ou enviando solicitações de pull (pull requests). Se você tiver sugestões de melhorias, correções de bugs ou novos recursos, adoraria ouvir sua opinião!
