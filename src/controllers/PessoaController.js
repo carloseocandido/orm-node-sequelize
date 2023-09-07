@@ -12,7 +12,6 @@ class PessoaController {
 
     static listarPorId = async (req, res) => {
         const { id } = req.params;
-
         try {
             const pessoasResultado = await database.Pessoas.findOne({ where: { id: Number(id) } });
             return res.status(200).json(pessoasResultado);
@@ -23,7 +22,6 @@ class PessoaController {
 
     static cadastrarPessoas = async (req, res) => {
         const resultado = req.body
-        
         try {
             const pessoasResultado = await database.Pessoas.create(resultado)
             return res.status(200).json(pessoasResultado)
@@ -36,7 +34,6 @@ class PessoaController {
     static atualizarPessoas = async (req, res) => {
         const { id } = req.params
         const resultado = req.body
-
         try {
             await database.Pessoas.update(resultado, { where: { id: Number(id) } })
             const pessoasAtualizada = await database.Pessoas.findOne({ where: { id: Number(id) } });
@@ -49,7 +46,6 @@ class PessoaController {
 
     static apagarPessoas = async (req, res) => {
         const { id } = req.params
-
         try {
             await database.Pessoas.destroy({ where: { id: Number(id) } })
             return res.status(200).json({ message: `O registro ${id} foi excluido.` })
