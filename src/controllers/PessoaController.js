@@ -53,6 +53,70 @@ class PessoaController {
             return res.status(500).json(error.message);
         }
     }
+
+    static listarPorMatricula = async (req, res) => {
+        const { estudanteId, matriculaId } = req.params;
+        try {
+            const matriculaResultado = await database.Matriculas.findOne({
+                where: {
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId)
+                }
+            });
+            return res.status(200).json(matriculaResultado);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
+
+    static criaMatricula = async (req, res) => {
+        const { estudanteId } = req.params
+        const novaMatricula = { ...req.body, estudante_id: Number(estudanteId) }
+        try {
+            const novaMatriculaCriada = await database.Matriculas.create(novaMatricula)
+            return res.status(200).json(novaMatriculaCriada)
+
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
+
+    static atualizarMatricula = async (req, res) => {
+        const { estudanteId, matriculaId } = req.params;
+        const informacoes = req.body
+        try {
+            await database.Matriculas.update(informacoes, {
+                where: {
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId)
+                }
+            })
+            const MatriculaAtualizada = await database.Matriculas.findOne({
+                where: {
+                    id: Number(matriculaId),
+                }
+            });
+
+            res.status(200).json(MatriculaAtualizada)
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
+
+    static apagarMatricula = async (req, res) => {
+        const { estudanteId, matriculaId } = req.params;
+        try {
+            await database.Matriculas.destroy({
+                where: {
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId)
+                }
+            })
+            return res.status(200).json({ message: `O registro ${matriculaId} foi excluido.` })
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
 }
 
 module.exports = PessoaController;
