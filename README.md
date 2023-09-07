@@ -9,7 +9,7 @@ Este repositório é dedicado ao estudo de Mapeamento Objeto-Relacional (ORM) em
 Antes de começar, você deve ter o seguinte instalado em sua máquina:
 
 - [Node.js](https://nodejs.org/) (v14 ou posterior)
-- [npm](https://www.npmjs.com/) (v6 ou posterior)
+- [NPM](https://www.npmjs.com/) (v6 ou posterior)
 - [MySQL](https://www.mysql.com/) (v5.7 ou posterior) instalado e configurado
 ## Instalação
 
@@ -45,4 +45,4 @@ Neste projeto, você encontrará exemplos de como usar o Sequelize para realizar
 - config: Arquivos de configuração do Sequelize e conexão com o banco de dados.
 
 ##  Contribuição
-Sinta-se à vontade para contribuir com este projeto, abrindo problemas (issues) ou enviando solicitações de pull (pull requests). Se você tiver sugestões de melhorias, correções de bugs ou novos recursos, adoraríamos ouvir sua opinião!
+Sinta-se à vontade para contribuir com este projeto, abrindo problemas (issues) ou enviando solicitações de pull (pull requests). Se você tiver sugestões de melhorias, correções de bugs ou novos recursos, adoraria ouvir sua opinião!
