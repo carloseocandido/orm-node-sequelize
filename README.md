@@ -1,5 +1,3 @@
-# AINDA EM COSTRUÇÃO :mechanic:
-
 # Estudo de ORM em Node.js com Sequelize e MySQL
 
 Este repositório é dedicado ao estudo de Mapeamento Objeto-Relacional (ORM) em Node.js, utilizando a biblioteca Sequelize em conjunto com o sistema de gerenciamento de banco de dados MySQL. O objetivo deste projeto é fornecer um guia passo a passo e exemplos práticos para ajudar você a aprender como usar o Sequelize para interagir com bancos de dados MySQL em seus aplicativos Node.js.
@@ -30,9 +28,9 @@ Antes de começar, você deve ter o seguinte instalado em sua máquina:
      ```bash
    src/config/config.json
 
-5. Execute as migrações para criar as tabelas no banco de dados:
+5. Execute as migrações para criar as tabelas e popular o banco de dados:
      ```bash
-   npx sequelize-cli db:migrate
+   npm run repopulate
 
 
 ## Uso
