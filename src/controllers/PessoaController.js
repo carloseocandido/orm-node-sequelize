@@ -4,6 +4,7 @@ class PessoaController {
     static listaPessoasAtivas = async (req, res) => {
         try {
             const pessoasAtivasResultado = await database.Pessoas.findAll();
+
             return res.status(200).json(pessoasAtivasResultado);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -13,6 +14,7 @@ class PessoaController {
     static listaTodasAsPessoas = async (req, res) => {
         try {
             const pessoasResultado = await database.Pessoas.scope("todos").findAll();
+
             return res.status(200).json(pessoasResultado);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -23,6 +25,7 @@ class PessoaController {
         const { id } = req.params;
         try {
             const pessoasResultado = await database.Pessoas.findOne({ where: { id: Number(id) } });
+
             return res.status(200).json(pessoasResultado);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -33,8 +36,8 @@ class PessoaController {
         const resultado = req.body;
         try {
             const pessoasResultado = await database.Pessoas.create(resultado);
-            return res.status(200).json(pessoasResultado);
 
+            return res.status(200).json(pessoasResultado);
         } catch (error) {
             return res.status(500).json(error.message);
         }
@@ -57,6 +60,7 @@ class PessoaController {
         const { id } = req.params;
         try {
             await database.Pessoas.destroy({ where: { id: Number(id) } });
+
             return res.status(200).json({ message: `O registro ${id} foi excluido.` });
         } catch (error) {
             return res.status(500).json(error.message);
@@ -67,6 +71,7 @@ class PessoaController {
         const { id } = req.params;
         try {
             await database.Pessoas.restore({ where: { id: Number(id) } });
+
             return res.status(200).json({ message: `Id ${id} restaurado` });
         } catch (error) {
             return res.status(500).json(error.message);
@@ -82,6 +87,7 @@ class PessoaController {
                     estudante_id: Number(estudanteId)
                 }
             });
+
             return res.status(200).json(matriculaResultado);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -93,8 +99,8 @@ class PessoaController {
         const novaMatricula = { ...req.body, estudante_id: Number(estudanteId) };
         try {
             const novaMatriculaCriada = await database.Matriculas.create(novaMatricula);
-            return res.status(200).json(novaMatriculaCriada);
 
+            return res.status(200).json(novaMatriculaCriada);
         } catch (error) {
             return res.status(500).json(error.message);
         }
@@ -116,7 +122,7 @@ class PessoaController {
                 }
             });
 
-            res.status(200).json(MatriculaAtualizada);
+            return res.status(200).json(MatriculaAtualizada);
         } catch (error) {
             return res.status(500).json(error.message);
         }
@@ -131,6 +137,7 @@ class PessoaController {
                     estudante_id: Number(estudanteId)
                 }
             });
+
             return res.status(200).json({ message: `O registro ${matriculaId} foi excluido.` });
         } catch (error) {
             return res.status(500).json(error.message);
@@ -146,7 +153,20 @@ class PessoaController {
                     estudante_id: Number(estudanteId)
                 }
             });
+
             return res.status(200).json({ message: `O registro ${matriculaId} foi restaurado.` });
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    };
+
+    static listaMatriculaPorPessoa = async (req, res) => {
+        const { estudanteId } = req.params;
+        try {
+            const pessoa = await database.Pessoas.findOne({ where: { id: Number(estudanteId) }});
+            const matriculas = await pessoa.getAulasMatriculadas();
+
+            return res.status(200).json(matriculas);
         } catch (error) {
             return res.status(500).json(error.message);
         }
