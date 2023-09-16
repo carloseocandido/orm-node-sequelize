@@ -1,7 +1,7 @@
 const database = require("../models");
 
 class PessoaController {
-    static listarTodasAsPessoas = async (req, res) => {
+    static listaTodasAsPessoas = async (req, res) => {
         try {
             const pessoasResultado = await database.Pessoas.findAll();
             return res.status(200).json(pessoasResultado);
@@ -10,7 +10,7 @@ class PessoaController {
         }
     };
 
-    static listarPorId = async (req, res) => {
+    static listaPessoaPorId = async (req, res) => {
         const { id } = req.params;
         try {
             const pessoasResultado = await database.Pessoas.findOne({ where: { id: Number(id) } });
@@ -20,7 +20,7 @@ class PessoaController {
         }
     };
 
-    static cadastrarPessoas = async (req, res) => {
+    static cadastraPessoa = async (req, res) => {
         const resultado = req.body;
         try {
             const pessoasResultado = await database.Pessoas.create(resultado);
@@ -31,7 +31,7 @@ class PessoaController {
         }
     };
 
-    static atualizarPessoas = async (req, res) => {
+    static atualizaPessoa = async (req, res) => {
         const { id } = req.params;
         const resultado = req.body;
         try {
@@ -44,7 +44,7 @@ class PessoaController {
         }
     };
 
-    static apagarPessoas = async (req, res) => {
+    static apagaPessoa = async (req, res) => {
         const { id } = req.params;
         try {
             await database.Pessoas.destroy({ where: { id: Number(id) } });
@@ -54,7 +54,7 @@ class PessoaController {
         }
     };
 
-    static restauraPessoas = async (req, res) => {
+    static restauraPessoa = async (req, res) => {
         const { id } = req.params;
         try {
             await database.Pessoas.restore({ where: { id: Number(id) } });
@@ -64,7 +64,7 @@ class PessoaController {
         }
     };
 
-    static listarPorMatricula = async (req, res) => {
+    static listaPorMatricula = async (req, res) => {
         const { estudanteId, matriculaId } = req.params;
         try {
             const matriculaResultado = await database.Matriculas.findOne({
@@ -91,7 +91,7 @@ class PessoaController {
         }
     };
 
-    static atualizarMatricula = async (req, res) => {
+    static atualizaMatricula = async (req, res) => {
         const { estudanteId, matriculaId } = req.params;
         const informacoes = req.body;
         try {
@@ -113,7 +113,7 @@ class PessoaController {
         }
     };
 
-    static apagarMatricula = async (req, res) => {
+    static apagaMatricula = async (req, res) => {
         const { estudanteId, matriculaId } = req.params;
         try {
             await database.Matriculas.destroy({
@@ -123,6 +123,21 @@ class PessoaController {
                 }
             });
             return res.status(200).json({ message: `O registro ${matriculaId} foi excluido.` });
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    };
+
+    static restauraMatricula = async (req, res) => {
+        const { estudanteId, matriculaId } = req.params;
+        try {
+            await database.Matriculas.restore({
+                where: {
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId)
+                }
+            });
+            return res.status(200).json({ message: `O registro ${matriculaId} foi restaurado.` });
         } catch (error) {
             return res.status(500).json(error.message);
         }

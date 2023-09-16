@@ -1,7 +1,7 @@
 const database = require("../models");
 
 class TurmaController {
-    static async pegaTodasAsTurmas(req, res) {
+    static async listaTodasAsTurmas(req, res) {
         try {
             const todasAsTurmas = await database.Turmas.findAll();
             return res.status(200).json(todasAsTurmas);
@@ -10,7 +10,7 @@ class TurmaController {
         }
     }
 
-    static listarPorId = async (req, res) => {
+    static listaTurmaPorId = async (req, res) => {
         const { id } = req.params;
         try {
             const turmasResultado = await database.Turmas.findOne({ where: { id: Number(id) } });
@@ -20,7 +20,7 @@ class TurmaController {
         }
     };
 
-    static cadastrarTurma = async (req, res) => {
+    static cadastraTurma = async (req, res) => {
         const resultado = req.body;
         try {
             const turmasResultado = await database.Turmas.create(resultado);
@@ -31,7 +31,7 @@ class TurmaController {
         }
     };
 
-    static atualizarTurma = async (req, res) => {
+    static atualizaTurma = async (req, res) => {
         const { id } = req.params;
         const resultado = req.body;
         try {
@@ -44,13 +44,24 @@ class TurmaController {
         }
     };
 
-    static apagarTurma = async (req, res) => {
+    static apagaTurma = async (req, res) => {
         const { id } = req.params;
         try {
             await database.Turmas.destroy({ where: { id: Number(id) } });
             return res.status(200).json({ message: `O registro ${id} foi excluido.` });
         } catch (error) {
             return res.status(500).json(error.message);
+        }
+    };
+
+    static restauraTurma = async (req, res) => {
+        const { id } = req.params;
+        try {
+            console.log(id);
+            await database.Turmas.restore({ where: { id: Number(id) } });
+            return res.status(200).json({ message: `Id ${id} restaurado.` });
+        } catch (error) {
+            return res.status(500).json(error.message); 
         }
     };
 }

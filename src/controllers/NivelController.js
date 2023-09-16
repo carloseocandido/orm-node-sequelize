@@ -1,7 +1,7 @@
 const database = require("../models");
 
 class NivelController {
-    static async pegaTodosOsNiveis(req, res) {
+    static async listaTodosOsNiveis(req, res) {
         try {
             const niveisResultado = await database.Niveis.findAll();
             return res.status(200).json(niveisResultado);
@@ -10,7 +10,7 @@ class NivelController {
         }
     }
 
-    static listarPorId = async (req, res) => {
+    static listaNivelPorId = async (req, res) => {
         const { id } = req.params;
         try {
             const niveisResultado = await database.Niveis.findOne({ where: { id: Number(id) } });
@@ -20,7 +20,7 @@ class NivelController {
         }
     };
 
-    static cadastrarNiveis = async (req, res) => {
+    static cadastraNivel = async (req, res) => {
         const resultado = req.body;
         try {
             const niveisResultado = await database.Niveis.create(resultado);
@@ -31,7 +31,7 @@ class NivelController {
         }
     };
 
-    static atualizarNiveis = async (req, res) => {
+    static atualizaNivel = async (req, res) => {
         const { id } = req.params;
         const resultado = req.body;
         try {
@@ -44,11 +44,21 @@ class NivelController {
         }
     };
 
-    static apagarNiveis = async (req, res) => {
+    static apagaNivel = async (req, res) => {
         const { id } = req.params;
         try {
             await database.Niveis.destroy({ where: { id: Number(id) } });
             return res.status(200).json({ message: `O registro ${id} foi excluido.` });
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    };
+
+    static restaurarNivel = async (req, res) => {
+        const { id } = req.params;
+        try {
+            await database.Niveis.restore( {where: { id: Number(id) }});
+            return res.status(200).json({ message: `Id ${id} restaurado.` });
         } catch (error) {
             return res.status(500).json(error.message);
         }
