@@ -1,4 +1,5 @@
 const database = require("../models");
+const Sequelize = require("sequelize");
 
 class PessoaController {
     static listaPessoasAtivas = async (req, res) => {
@@ -186,6 +187,25 @@ class PessoaController {
                 });
             
             return res.status(200).json(todasAsMatriculas);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    };
+
+    static listaTurmasLotadas = async (req, res) => {
+        const lotacaoTurma = 2;
+        try {
+            const turmasLotadas = await database.Matriculas
+                .findAndCountAll({
+                    where: {
+                        status: "confirmado"
+                    },
+                    attriutes: ["turma_id"],
+                    group: ["turma_id"],
+                    having: Sequelize.literal(`count(turma_id) >= ${lotacaoTurma}`)
+                });
+
+            return res.status(200).json(turmasLotadas);
         } catch (error) {
             return res.status(500).json(error.message);
         }
