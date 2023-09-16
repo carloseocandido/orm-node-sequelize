@@ -6,9 +6,9 @@ Este repositório é dedicado ao estudo de Mapeamento Objeto-Relacional (ORM) em
 
 Antes de começar, você deve ter o seguinte instalado em sua máquina:
 
-- [Node.js](https://nodejs.org/) (v14 ou posterior)
-- [NPM](https://www.npmjs.com/) (v6 ou posterior)
-- [MySQL](https://www.mysql.com/) (v5.7 ou posterior) instalado e configurado
+- [Node.js](https://nodejs.org/) (v14)
+- [NPM](https://www.npmjs.com/) (v6)
+- [MySQL](https://www.mysql.com/) (v5.7) instalado e configurado
 ## Instalação
 
 1. Clone este repositório em sua máquina local:
