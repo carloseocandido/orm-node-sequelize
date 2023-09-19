@@ -1,10 +1,13 @@
-const database = require("../models");
-const Sequelize = require("sequelize");
+// const database = require("../models");
+// const Sequelize = require("sequelize");
+
+const Services = require("../services/Services");
+const pessoasServices = new Services("Pessoas");
 
 class PessoaController {
     static listaPessoasAtivas = async (req, res) => {
         try {
-            const pessoasAtivasResultado = await database.Pessoas.findAll();
+            const pessoasAtivasResultado = await pessoasServices.listaTodosOsRegistros();
 
             return res.status(200).json(pessoasAtivasResultado);
         } catch (error) {
@@ -214,7 +217,6 @@ class PessoaController {
     static cancelaPessoa = async (req, res) => {
         const { estudanteId } = req.params;
         try {
-
             database.sequelize.transaction( async transacao => {
                 await database.Pessoas
                     .update({ ativo: false }, { where: { id: Number(estudanteId) }}, { transaction: transacao });
